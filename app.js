@@ -1118,15 +1118,6 @@ function bindEvents() {
   // Export / Import
   document.getElementById('btn-export').addEventListener('click', exportJSON);
 
-  document.getElementById('btn-import-trigger').addEventListener('click', () => {
-    document.getElementById('import-file').click();
-  });
-
-  document.getElementById('import-file').addEventListener('change', e => {
-    const file = e.target.files[0];
-    if (file) importJSON(file);
-    e.target.value = '';
-  });
 
   // Touche Echap
   document.addEventListener('keydown', e => {
