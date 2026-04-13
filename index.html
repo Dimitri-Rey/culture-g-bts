@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Culture Générale — BTS SIO</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">CG</div>
+      <div>
+        <h1>Culture Générale</h1>
+        <p class="subtitle">BTS SIO</p>
+      </div>
+    </div>
+
+    <div class="sidebar-stats">
+      <span id="total-works">0 œuvre</span>
+    </div>
+
+    <nav class="periods-nav" id="periods-nav"></nav>
+
+    <div class="sidebar-footer">
+      <button id="btn-export" class="btn-sidebar">⬇ Exporter JSON</button>
+      <button id="btn-import-trigger" class="btn-sidebar">⬆ Importer JSON</button>
+      <input type="file" id="import-file" accept=".json" style="display:none">
+    </div>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <main class="main">
+    <header class="main-header">
+      <div class="header-top">
+        <h2 id="current-period-title">Toutes les périodes</h2>
+      </div>
+      <div class="filters">
+        <input type="text" id="search" placeholder="🔍 Rechercher titre, auteur, thème…" class="search-input">
+        <select id="filter-type" class="filter-select">
+          <option value="">Tous les types</option>
+        </select>
+        <select id="sort-by" class="filter-select">
+          <option value="date-asc">Chronologique ↑</option>
+          <option value="date-desc">Chronologique ↓</option>
+          <option value="alpha">A → Z</option>
+          <option value="alpha-desc">Z → A</option>
+        </select>
+        <span id="results-count" class="results-count"></span>
+      </div>
+    </header>
+
+    <div class="period-banner" id="period-banner" hidden>
+      <div class="banner-body">
+        <strong id="banner-dates"></strong>
+        <p id="banner-desc"></p>
+      </div>
+    </div>
+
+    <div class="content-area">
+      <div class="works-grid" id="works-grid"></div>
+      <div class="empty-state" id="empty-state" style="display:none">
+        <div class="empty-icon">📚</div>
+        <h3>Aucune œuvre trouvée</h3>
+        <p>Commencez par classifier vos premières œuvres.</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- ============ MODAL AJOUT / ÉDITION ============ -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="modal-title">Ajouter une œuvre</h3>
+        <button class="modal-close" id="modal-close" title="Fermer">✕</button>
+      </div>
+      <form id="work-form" novalidate>
+        <div class="form-grid">
+
+          <div class="form-group span-2">
+            <label for="f-titre">Titre <span class="req">*</span></label>
+            <input type="text" id="f-titre" placeholder="Ex : Les Misérables" autocomplete="off">
+          </div>
+
+          <div class="form-group">
+            <label for="f-auteur">Auteur / Artiste <span class="req">*</span></label>
+            <input type="text" id="f-auteur" placeholder="Ex : Victor Hugo" autocomplete="off">
+          </div>
+
+          <div class="form-group">
+            <label for="f-annee">Année de création</label>
+            <input type="number" id="f-annee" placeholder="Ex : 1862 (négatif = av. J.-C.)" min="-5000" max="2030">
+          </div>
+
+          <div class="form-group">
+            <label for="f-type">Type d'œuvre <span class="req">*</span></label>
+            <select id="f-type"></select>
+          </div>
+
+          <div class="form-group">
+            <label for="f-periode">Période historique <span class="req">*</span></label>
+            <select id="f-periode"></select>
+          </div>
+
+          <div class="form-group span-2">
+            <label for="f-theme">Thème(s) BTS SIO</label>
+            <input type="text" id="f-theme" placeholder="Ex : La liberté, L'identité, Le pouvoir, La technique…">
+          </div>
+
+          <div class="form-group span-2">
+            <label for="f-description">Description / Analyse</label>
+            <textarea id="f-description" rows="4" placeholder="Résumé, analyse, points clés à retenir…"></textarea>
+          </div>
+
+        </div>
+        <div class="form-error" id="form-error"></div>
+        <div class="form-actions">
+          <button type="button" id="btn-cancel" class="btn-secondary">Annuler</button>
+          <button type="submit" class="btn-primary">Enregistrer</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============ MODAL SUPPRESSION ============ -->
+  <div class="modal-overlay" id="confirm-overlay">
+    <div class="modal modal-confirm">
+      <div class="confirm-icon">🗑️</div>
+      <h3>Supprimer cette œuvre ?</h3>
+      <p id="confirm-text"></p>
+      <div class="form-actions center">
+        <button id="confirm-cancel" class="btn-secondary">Annuler</button>
+        <button id="confirm-delete" class="btn-danger">Supprimer</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
