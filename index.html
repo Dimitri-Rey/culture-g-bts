@@ -35,7 +35,11 @@
       <div class="header-top">
         <h2 id="current-period-title">Toutes les périodes</h2>
       </div>
-      <div class="filters">
+      <div class="tab-bar">
+        <button class="tab-btn active" data-tab="grid">📋 Galerie</button>
+        <button class="tab-btn" data-tab="timeline">📅 Frise chronologique</button>
+      </div>
+      <div class="filters" id="filters-bar">
         <input type="text" id="search" placeholder="🔍 Rechercher titre, auteur, thème…" class="search-input">
         <select id="filter-type" class="filter-select">
           <option value="">Tous les types</option>
@@ -58,12 +62,22 @@
     </div>
 
     <div class="content-area">
-      <div class="works-grid" id="works-grid"></div>
-      <div class="empty-state" id="empty-state" style="display:none">
-        <div class="empty-icon">📚</div>
-        <h3>Aucune œuvre trouvée</h3>
-        <p>Commencez par classifier vos premières œuvres.</p>
+
+      <!-- VUE GALERIE -->
+      <div id="view-grid">
+        <div class="works-grid" id="works-grid"></div>
+        <div class="empty-state" id="empty-state" style="display:none">
+          <div class="empty-icon">📚</div>
+          <h3>Aucune œuvre trouvée</h3>
+          <p>Commencez par classifier vos premières œuvres.</p>
+        </div>
       </div>
+
+      <!-- VUE FRISE -->
+      <div id="view-timeline" hidden>
+        <div class="timeline-container" id="timeline-container"></div>
+      </div>
+
     </div>
   </main>
 

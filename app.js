@@ -665,6 +665,7 @@ const state = {
   search: '',
   type: '',
   sort: 'date-asc',
+  tab: 'grid',
   editingId: null,
   deletingId: null,
 };
@@ -901,7 +902,96 @@ function renderCard(w) {
 function render() {
   renderSidebar();
   renderHeader();
-  renderGrid();
+  if (state.tab === 'grid') {
+    renderGrid();
+  } else {
+    renderTimeline();
+  }
+}
+
+
+// ─────────────────────────── FRISE CHRONOLOGIQUE ───────────────────────────
+
+function switchTab(tab) {
+  state.tab = tab;
+
+  document.querySelectorAll('.tab-btn').forEach(b =>
+    b.classList.toggle('active', b.dataset.tab === tab)
+  );
+
+  document.getElementById('view-grid').hidden     = (tab !== 'grid');
+  document.getElementById('view-timeline').hidden = (tab !== 'timeline');
+  document.getElementById('filters-bar').hidden   = (tab !== 'grid');
+  document.getElementById('period-banner').hidden = true;
+
+  if (tab === 'timeline') renderTimeline();
+  else renderGrid();
+}
+
+function renderTimeline() {
+  const container = document.getElementById('timeline-container');
+
+  // Works triées par année (null en fin)
+  const all = state.works.slice().sort((a, b) => {
+    if (a.annee === null && b.annee === null) return 0;
+    if (a.annee === null) return 1;
+    if (b.annee === null) return -1;
+    return a.annee - b.annee;
+  });
+
+  // Filtre période si sélectionnée
+  const periodesFiltrees = state.period === 'all'
+    ? PERIODES
+    : PERIODES.filter(p => p.id === state.period);
+
+  let html = '';
+
+  for (const p of periodesFiltrees) {
+    const works = all.filter(w => w.periode === p.id);
+    if (works.length === 0) continue;
+
+    const pcBg  = hex2rgba(p.couleur, 0.08);
+    const count = works.length;
+
+    html += `
+      <div class="tl-period" style="--pc:${p.couleur};--pc-bg:${pcBg}">
+        <div class="tl-period-header">
+          <span class="tl-ph-dot"></span>
+          <span class="tl-ph-nom">${esc(p.nom)}</span>
+          <span class="tl-ph-dates">— ${esc(p.dates)}</span>
+          <span class="tl-ph-count">${count} œuvre${count > 1 ? 's' : ''}</span>
+        </div>
+        <div class="tl-items">
+          ${works.map(w => renderTimelineItem(w, p)).join('')}
+        </div>
+      </div>`;
+  }
+
+  if (!html) {
+    html = '<div class="empty-state" style="display:flex"><div class="empty-icon">📅</div><h3>Aucune œuvre pour cette période</h3></div>';
+  }
+
+  container.innerHTML = html;
+}
+
+function renderTimelineItem(w, p) {
+  const yearStr  = formatYear(w.annee);
+  const yearClass = yearStr ? '' : 'no-date';
+  const yearLabel = yearStr || 's.d.';
+
+  return `
+    <div class="tl-item" style="--pc:${p.couleur}">
+      <div class="tl-year ${yearClass}">${yearLabel}</div>
+      <div class="tl-card">
+        <div class="tl-card-top">
+          ${w.type ? `<span class="tag tag-type">${esc(w.type)}</span>` : ''}
+        </div>
+        <div class="tl-card-title">${esc(w.titre)}</div>
+        <div class="tl-card-author">${esc(w.auteur)}</div>
+        ${w.theme       ? `<div class="tl-card-theme">📌 ${esc(w.theme)}</div>` : ''}
+        ${w.description ? `<div class="tl-card-desc">${esc(w.description)}</div>` : ''}
+      </div>
+    </div>`;
 }
 
 
@@ -1063,6 +1153,11 @@ function populateSelects() {
 // ─────────────────────────── ÉVÉNEMENTS ───────────────────────────
 
 function bindEvents() {
+
+  // Onglets Galerie / Frise
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+  });
 
   // Sidebar : clic sur période (délégation)
   document.getElementById('periods-nav').addEventListener('click', e => {
