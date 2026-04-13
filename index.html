@@ -38,6 +38,7 @@
       <div class="tab-bar">
         <button class="tab-btn active" data-tab="grid">📋 Galerie</button>
         <button class="tab-btn" data-tab="timeline">📅 Frise chronologique</button>
+        <button class="tab-btn" data-tab="axes">📊 Axes thématiques</button>
       </div>
       <div class="filters" id="filters-bar">
         <input type="text" id="search" placeholder="🔍 Rechercher titre, auteur, thème…" class="search-input">
@@ -76,6 +77,11 @@
       <!-- VUE FRISE -->
       <div id="view-timeline" hidden>
         <div class="timeline-container" id="timeline-container"></div>
+      </div>
+
+      <!-- VUE AXES THÉMATIQUES -->
+      <div id="view-axes" hidden>
+        <div class="axes-container" id="axes-container"></div>
       </div>
 
     </div>

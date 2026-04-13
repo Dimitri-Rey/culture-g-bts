@@ -497,12 +497,12 @@ const DEFAULT_WORKS = [
   {
     id: 'd41',
     titre: 'Le Coq',
-    auteur: 'Marc Chabâal',
-    annee: null,
+    auteur: 'Marc Chagall',
+    annee: 1952,
     type: 'Peinture',
-    periode: 'contemporain',
-    theme: "L'emblème, Le symbole collectif, La fierté nationale",
-    description: "Représentation picturale du coq, symbole de fierté et d'identité. L'animal comme emblème, porteur de valeurs collectives et de puissance symbolique.",
+    periode: 'apres-guerre',
+    theme: "L'emblème, Le symbole collectif, La fierté, L'animal allégorique",
+    description: "Peinture de Marc Chagall représentant un coq flamboyant, animal récurrent dans son œuvre. Symbole de fierté, d'identité et de puissance. L'animal comme emblème porteur de valeurs collectives.",
   },
   {
     id: 'd42',
@@ -653,6 +653,85 @@ const DEFAULT_WORKS = [
     periode: 'romantisme',
     theme: "La science, La naïveté, L'illusion du progrès",
     description: "Roman satirique dans lequel deux personnages accumulent des savoirs sans vraiment les comprendre, y compris sur la nature et les animaux. L'animal comme objet de savoir mal maîtrisé, révélant la naïveté et l'illusion du progrès scientifique.",
+  },
+  {
+    id: 'd57',
+    titre: 'Alice au pays des merveilles',
+    auteur: 'Lewis Carroll',
+    annee: 1865,
+    type: 'Littérature',
+    periode: 'romantisme',
+    theme: "L'animal fantastique, L'imaginaire, Les bêtes imaginaires, L'absurde",
+    description: "Roman où Alice rencontre des animaux parlants et fantastiques (le Lapin blanc, la Chenille, le Chat du Cheshire…). L'animal imaginaire comme projection des peurs et désirs de l'homme, explorant ce qui échappe à la raison et à l'ordre du monde.",
+  },
+];
+
+
+// ─────────────────────────── 7 AXES THÉMATIQUES ───────────────────────────
+
+const AXES = [
+  {
+    num: '①',
+    titre: 'Allégorie politique et sociale',
+    sousTitre: 'Dire l\'homme à travers la bête — Animal miroir de l\'homme',
+    oeuvres: ['Fables de La Fontaine', 'La Ferme des animaux — Orwell', 'Le Roman de Renart', 'Cartoons américains (Bugs Bunny, Mickey, Tom & Jerry)', 'Ésope — Le Chien et son image', 'Chagall — Le Coq'],
+    sujet: '« La littérature et l\'art animaliers sont-ils toujours une critique déguisée de la société humaine ? »',
+    periodes: '5e s. av. J.-C. (Ésope) · Moyen Âge (Roman de Renart) · XVIIe s. (La Fontaine) · XXe s. (Orwell, cartoons)',
+    couleur: '#E8853A',
+  },
+  {
+    num: '②',
+    titre: 'La frontière homme / animal',
+    sousTitre: 'Qu\'est-ce qui nous distingue vraiment ?',
+    oeuvres: ['La Métamorphose — Kafka', 'Les Animaux dénaturés — Vercors', 'L\'Animal que donc je suis — Derrida', 'Le Règne animal — Cailley', 'Un animal doué de raison — Merle', 'Essais — Montaigne (Apologie de Raymond Sebond)', 'Articles bêtes — Voltaire'],
+    sujet: '« Peut-on encore tracer une frontière nette entre l\'homme et l\'animal ? »',
+    periodes: 'XVIe s. (Montaigne) · XVIIIe s. (Voltaire) · 1915 (Kafka) · 1952–1965 (Vercors, Merle) · 2006–2023 (Derrida, Cailley)',
+    couleur: '#7B68EE',
+  },
+  {
+    num: '③',
+    titre: 'L\'animal dans l\'art et la représentation',
+    sousTitre: 'Peindre, sculpter, filmer la bête',
+    oeuvres: ['Grottes de Chauvet (~36 000 av. J.-C.)', 'Fresques de la grotte de Lascaux (~17 000 av. J.-C.)', 'Le Jardin des délices — Bosch', 'Deux têtes physiognomoniques — Charles Le Brun', 'Le Bœuf écorché — Rembrandt', 'Le Marché aux chevaux — Rosa Bonheur', 'Le Chat blanc — Bonnard', 'Chien et renard — Liljefors'],
+    sujet: '« Représenter l\'animal, c\'est toujours parler de l\'homme. » Cette affirmation vous semble-t-elle juste ?',
+    periodes: 'Préhistoire (Chauvet, Lascaux) · XVe–XVIIe s. (Bosch, Le Brun, Rembrandt) · XIXe s. (Rosa Bonheur) · XXe s. (Bonnard)',
+    couleur: '#C4A265',
+  },
+  {
+    num: '④',
+    titre: 'La relation affective à l\'animal',
+    sousTitre: 'Apprivoiser, aimer, comprendre',
+    oeuvres: ['Croc-Blanc — Jack London', 'Le Lion — Joseph Kessel', 'Dialogues de bêtes — Colette', 'Les Oies cendrées — Konrad Lorenz', 'L\'Animal et son biographe — Stéphanie Hochet', 'Comme une bête — Joy Sorman', 'Sans famille — Hector Malot', 'Les Contes du chat perché — Marcel Aymé'],
+    sujet: '« L\'attachement de l\'homme à l\'animal révèle-t-il un besoin de domination ou une aspiration à la communion ? »',
+    periodes: '1878–1906 (Malot, London) · 1904–1934 (Colette, Aymé) · 1958–1988 (Kessel, Lorenz) · 2012–2020 (Sorman, Hochet)',
+    couleur: '#52B788',
+  },
+  {
+    num: '⑤',
+    titre: 'L\'animal sauvage face à l\'homme',
+    sousTitre: 'Confrontation, fascination, coexistence',
+    oeuvres: ['Grizzly Man — Werner Herzog', 'Princesse Mononoké — Hayao Miyazaki', 'Croc-Blanc — Jack London', 'La Terre — Émile Zola', 'Cannibale — Didier Daeninckx', 'Croire aux fauves — Nastassja Martin', 'La grande Ourse — Maêlys Adhémar', 'Flow — Gints Zilbalodis'],
+    sujet: '« L\'homme peut-il véritablement coexister avec la nature sauvage, ou cherche-t-il toujours à la soumettre ? »',
+    periodes: '1887–1906 (Zola, London) · 1997 (Miyazaki) · 1998–2005 (Daeninckx, Herzog) · 2024 (Flow)',
+    couleur: '#5FA8D3',
+  },
+  {
+    num: '⑥',
+    titre: 'L\'animal fantastique et symbolique',
+    sousTitre: 'Bêtes imaginaires, bêtes intérieures',
+    oeuvres: ['Alice au pays des merveilles — Lewis Carroll', 'La Sirène à travers les âges — Kiko Herrero', 'Sirène argentine — Ève Bertini (2025)', 'Le Bestiaire divin de Guillaume, clerc de Normandie', 'Flow — Gints Zilbalodis', 'Princesse Mononoké — Hayao Miyazaki', 'Le Jardin des délices — Bosch', 'Le Règne animal — Thomas Cailley'],
+    sujet: '« L\'animal imaginaire est-il une projection des peurs et désirs de l\'homme, ou une façon d\'explorer ce qui lui échappe dans la nature ? »',
+    periodes: 'Moyen Âge (Bestiaires, sirènes) · XIXe s. (Carroll) · 1997–2023 (Miyazaki, Cailley) · 2024–2025 (Flow, Bertini)',
+    couleur: '#E066A8',
+  },
+  {
+    num: '⑦',
+    titre: 'L\'éthique animale et l\'exploitation',
+    sousTitre: 'Droit, végétarisme, instrumentalisation',
+    oeuvres: ['Articles bêtes — Voltaire', 'L\'Animal que donc je suis — Derrida', '« À propos du végétarisme » — Élisée Reclus', 'Les Mémoires d\'un dompteur — François Bidel', 'Affiche cirque Krone — Monsieur Charles', 'L\'Intelligence de l\'animal — Jacques Vauclair', '« La Foire aux chats à Ypres » — Adolphe Dinaux', 'Hure de sanglier — Marie-Antoine Carême'],
+    sujet: '« La reconnaissance de la sensibilité animale doit-elle conduire à remettre en cause nos modes d\'alimentation et de divertissement ? »',
+    periodes: 'XVIIIe s. (Voltaire, Lumières) · XIXe s. (cirque, Carême, Reclus) · 2006 (Derrida) · Contemporain (Vauclair, débat végane)',
+    couleur: '#E84545',
   },
 ];
 
@@ -921,11 +1000,48 @@ function switchTab(tab) {
 
   document.getElementById('view-grid').hidden     = (tab !== 'grid');
   document.getElementById('view-timeline').hidden = (tab !== 'timeline');
+  document.getElementById('view-axes').hidden     = (tab !== 'axes');
   document.getElementById('filters-bar').hidden   = (tab !== 'grid');
   document.getElementById('period-banner').hidden = true;
 
   if (tab === 'timeline') renderTimeline();
+  else if (tab === 'axes') renderAxes();
   else renderGrid();
+}
+
+function renderAxes() {
+  const container = document.getElementById('axes-container');
+
+  container.innerHTML = AXES.map(axe => `
+    <div class="axe-card" style="--ac:${axe.couleur};--ac-bg:${hex2rgba(axe.couleur, 0.07)}">
+      <div class="axe-header">
+        <span class="axe-num" style="background:${axe.couleur}">${axe.num}</span>
+        <div class="axe-titles">
+          <h3 class="axe-titre">${esc(axe.titre)}</h3>
+          <p class="axe-sous-titre">${esc(axe.sousTitre)}</p>
+        </div>
+      </div>
+
+      <div class="axe-body">
+        <div class="axe-section">
+          <span class="axe-label">Œuvres pivot</span>
+          <div class="axe-oeuvres">
+            ${axe.oeuvres.map(o => `<span class="axe-oeuvre-tag">${esc(o)}</span>`).join('')}
+          </div>
+        </div>
+
+        <div class="axe-section">
+          <span class="axe-label">💡 Sujet type</span>
+          <p class="axe-sujet">${esc(axe.sujet)}</p>
+        </div>
+
+        <div class="axe-section">
+          <span class="axe-label">📅 Périodes clés</span>
+          <p class="axe-periodes">${esc(axe.periodes)}</p>
+        </div>
+      </div>
+    </div>
+  `).join('');
 }
 
 function renderTimeline() {
